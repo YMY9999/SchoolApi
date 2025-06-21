@@ -1,6 +1,9 @@
 
 using Microsoft.EntityFrameworkCore;
-using SchoolApi.Infrastructure.Data;
+using SchoolApi.Core;
+using SchoolApi.Infrastructure;
+using SchoolApi.Infrastructure.Context;
+using SchoolApi.Service;
 
 namespace SchoolApi
 {
@@ -23,6 +26,10 @@ namespace SchoolApi
                 option.UseSqlServer(builder.Configuration.GetConnectionString("dbcontext"));
             });
 
+            builder.Services.AddInfrastructureDependecies()
+                            .AddServiceDependecies()
+                            .AddCoreDependecies();
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -35,7 +42,6 @@ namespace SchoolApi
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

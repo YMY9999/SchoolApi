@@ -1,12 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.DependencyInjection;
+using SchoolApi.Infrastructure.Abstract;
+using SchoolApi.Infrastructure.Repository;
 
 namespace SchoolApi.Infrastructure
 {
-    internal class ModuelInfrastructureDependecies
+    public static class ModuelInfrastructureDependecies
     {
+        public static IServiceCollection AddInfrastructureDependecies(this IServiceCollection service)
+        {
+            service.AddTransient<IStudentRepo, StudentRepo>();
+            return service;
+        }
     }
 }
