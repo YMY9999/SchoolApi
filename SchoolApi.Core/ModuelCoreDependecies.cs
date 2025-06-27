@@ -8,6 +8,7 @@ namespace SchoolApi.Core
         public static IServiceCollection AddCoreDependecies(this IServiceCollection service)
         {
             service.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            service.AddAutoMapper(Assembly.GetExecutingAssembly());
             return service;
         }
     }

@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using SchoolApi.Data.Entities;
+using SchoolApi.Core.Features.Students.Queries.Results;
 
 namespace SchoolApi.Core.Features.Students.Queries.Models
 {
-    public class GetStudentsQuery : IRequest<List<Student>>
+    public class GetStudentsQuery : IRequest<List<GetStudentsListResponse>>
     {
 
     }

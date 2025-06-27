@@ -1,20 +1,26 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using SchoolApi.Core.Features.Students.Queries.Models;
-using SchoolApi.Data.Entities;
+using SchoolApi.Core.Features.Students.Queries.Results;
 using SchoolApi.Service.Abstract;
 
 namespace SchoolApi.Core.Features.Students.Queries.Handlers
 {
-    public class StudentHandler : IRequestHandler<GetStudentsQuery, List<Student>>
+    public class StudentHandler : IRequestHandler<GetStudentsQuery, List<GetStudentsListResponse>>
     {
         private readonly IStudentService _studentService;
-        public StudentHandler(IStudentService studentService)
+        private readonly IMapper _mapper;
+
+        public StudentHandler(IStudentService studentService, IMapper mapper)
         {
             _studentService = studentService;
+            _mapper = mapper;
         }
-        public async Task<List<Student>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
+        public async Task<List<GetStudentsListResponse>> Handle(GetStudentsQuery request, CancellationToken cancellationToken)
         {
-            return await _studentService.GetStudentsAsync();
+            var StudentLsit = await _studentService.GetStudentsAsync();
+            var StudentListMapper = _mapper.Map<List<GetStudentsListResponse>>(StudentLsit);
+            return StudentListMapper;
         }
     }
 }
